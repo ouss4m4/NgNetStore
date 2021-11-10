@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        var logger = loggerFactory.CreateLogger("oussama");
+        var logger = loggerFactory.CreateLogger("program.cs");
         logger.LogError(ex, "An Error -*-----");
     }
 }
@@ -42,7 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
