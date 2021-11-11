@@ -15,6 +15,11 @@ builder.Services.AddDbContext<StoreContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("v1")));
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddCors(opts =>
+{
+    opts.AddPolicy("CorsPolicy", policy =>
+     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+});
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
@@ -41,6 +46,8 @@ app.UseSwaggerDocumentation();
 app.UseStatusCodePagesWithReExecute("/errors/${0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();
