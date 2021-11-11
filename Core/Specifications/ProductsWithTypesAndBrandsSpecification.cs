@@ -5,20 +5,22 @@ namespace Core.Specifications
 {
     public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product>
     {
-        public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)
+        public ProductsWithTypesAndBrandsSpecification(ProductSpecParams specs)
             : base(x =>
-                (!brandId.HasValue || x.ProductBrandId == brandId) &&
-                (!typeId.HasValue || x.ProductTypeId == typeId)
+                (!specs.BrandId.HasValue || x.ProductBrandId == specs.BrandId) &&
+                (!specs.TypeId.HasValue || x.ProductTypeId == specs.TypeId)
             )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
             AddOrderBy(x => x.Name);
+            ApplyPaging(specs.PageSize * (specs.PageIndex - 1), specs.PageSize);
 
-            if (!string.IsNullOrEmpty(sort))
+
+            if (!string.IsNullOrEmpty(specs.Sort))
             {
 
-                switch (sort)
+                switch (specs.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);
