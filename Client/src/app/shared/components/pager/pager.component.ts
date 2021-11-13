@@ -11,7 +11,7 @@ export class PagerComponent {
   @Output() pageChanged = new EventEmitter<number>();
   constructor() {}
 
-  onPagerClick(event: any) {
+  onPageChanged(event: any) {
     this.pageChanged.emit(event.page);
   }
 }
