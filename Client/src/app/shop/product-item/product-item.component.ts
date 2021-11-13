@@ -6,11 +6,7 @@ import { IProduct } from '../../shared/models/product';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
 })
-export class ProductItemComponent implements OnInit {
-  @Input() product!: IProduct;
+export class ProductItemComponent {
+  @Input() product?: IProduct;
   constructor() {}
-
-  ngOnInit(): void {
-    console.log(this.product);
-  }
 }

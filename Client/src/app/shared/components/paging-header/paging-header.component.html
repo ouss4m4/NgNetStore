@@ -1,0 +1,10 @@
+<header>
+  <span *ngIf="count; else noresult"
+    >Showing
+    <strong>
+      {{ getVisibleNumber() }}
+    </strong>
+    of <strong>{{ count }}</strong> Results
+  </span>
+  <ng-template #noresult> No result for the selected filters </ng-template>
+</header>

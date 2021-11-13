@@ -2,37 +2,45 @@
   <div class="row">
     <section class="col-3">
       <h5 class="text-warning ml-3">Sort</h5>
-      <select class="form-control mb-3">
-        <option>Alphabetical</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
+      <select class="form-control mb-3" (change)="onSortSelected($event)">
+        <option *ngFor="let option of sortOptions" [value]="option.value">
+          {{ option.name }}
+        </option>
       </select>
 
       <h5 class="text-warning ml-3">Brands</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item active">Lorem</li>
-        <li class="list-group-item">Dolor</li>
-        <li class="list-group-item">Ipsum</li>
-        <li class="list-group-item">Amert</li>
-        <li class="list-group-item">Comboba</li>
+        <li
+          class="list-group-item"
+          *ngFor="let brand of brands"
+          [class.active]="brand.id === this.shopParams.brandId"
+          [value]="brand.id"
+          (click)="onBrandSelected(brand.id)"
+        >
+          {{ brand.name }}
+        </li>
       </ul>
       <h5 class="text-warning ml-3">Types</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item">Lorem</li>
-        <li class="list-group-item">Dolor</li>
-        <li class="list-group-item">Ipsum</li>
-        <li class="list-group-item active">Amert</li>
-        <li class="list-group-item">Comboba</li>
+        <li
+          class="list-group-item"
+          *ngFor="let type of types"
+          [class.active]="type.id === this.shopParams.typeId"
+          [value]="type.id"
+          (click)="onTypeSelected(type.id)"
+        >
+          {{ type.name }}
+        </li>
       </ul>
     </section>
 
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span
-            >Showing <strong>10</strong> of <strong>18</strong> Results
-          </span>
-        </header>
+        <app-paging-header
+          [count]="count"
+          [pageIndex]="shopParams.pageIndex"
+          [pageSize]="shopParams.pageSize"
+        ></app-paging-header>
         <div class="d-flex form-inline align-items-center gap-2 mt2">
           <input
             type="text"
@@ -46,9 +54,16 @@
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <app-product-item
-          *ngFor="let product of prods"
+          *ngFor="let product of productList"
           [product]="product"
         ></app-product-item>
+      </div>
+      <div class="d-flex justify-content-center" *ngIf="count">
+        <app-pager
+          [count]="count"
+          [pageSize]="shopParams.pageSize"
+          (pageChanged)="onPageChanged($event)"
+        ></app-pager>
       </div>
     </section>
   </div>
