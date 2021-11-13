@@ -1,7 +1,55 @@
-<div class="container" style="margin-top: 90px">
-  <ul>
-    <li *ngFor="let prod of prods">
-      {{ prod.name }}
-    </li>
-  </ul>
+<div class="container">
+  <div class="row">
+    <section class="col-3">
+      <h5 class="text-warning ml-3">Sort</h5>
+      <select class="form-control mb-3">
+        <option>Alphabetical</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+      </select>
+
+      <h5 class="text-warning ml-3">Brands</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item active">Lorem</li>
+        <li class="list-group-item">Dolor</li>
+        <li class="list-group-item">Ipsum</li>
+        <li class="list-group-item">Amert</li>
+        <li class="list-group-item">Comboba</li>
+      </ul>
+      <h5 class="text-warning ml-3">Types</h5>
+      <ul class="list-group my-3">
+        <li class="list-group-item">Lorem</li>
+        <li class="list-group-item">Dolor</li>
+        <li class="list-group-item">Ipsum</li>
+        <li class="list-group-item active">Amert</li>
+        <li class="list-group-item">Comboba</li>
+      </ul>
+    </section>
+
+    <section class="col-9">
+      <div class="d-flex justify-content-between align-items-center pb-2">
+        <header>
+          <span
+            >Showing <strong>10</strong> of <strong>18</strong> Results
+          </span>
+        </header>
+        <div class="d-flex form-inline align-items-center gap-2 mt2">
+          <input
+            type="text"
+            class="form-control form-control-md mr-2"
+            style="width: 270px"
+            placeholder="Search"
+          />
+          <button class="btn btn-outline-primary my-2">Search</button>
+          <button class="btn btn-outline-success my-2">Reset</button>
+        </div>
+      </div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <app-product-item
+          *ngFor="let product of prods"
+          [product]="product"
+        ></app-product-item>
+      </div>
+    </section>
+  </div>
 </div>
