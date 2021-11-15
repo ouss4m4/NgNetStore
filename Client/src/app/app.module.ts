@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { HeaderInterceptor } from './core/services/httpinterceptor.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './core/services/loading.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,9 +21,11 @@ import { HeaderInterceptor } from './core/services/httpinterceptor.service';
     HttpClientModule,
     CoreModule,
     HomeModule,
+    NgxSpinnerModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

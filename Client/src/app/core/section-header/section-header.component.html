@@ -1,13 +1,16 @@
-<div class="container py-2 fixed-top" style="margin-top: 85px">
+<div
+  class="container py-2 fixed-top"
+  style="margin-top: 85px; background: white"
+>
   <div class="row">
     <div class="row">
       <div class="d-flex align-items-center">
-        <div class="col-9" *ngIf="breadCrumb$ | async as bcrumb">
+        <div class="col-6" *ngIf="breadCrumb$ | async as bcrumb">
           <h5 *ngIf="bcrumb.length > 1">
             {{ bcrumb[bcrumb.length - 1]["label"] }}
           </h5>
         </div>
-        <div class="col-3">
+        <div class="col-6">
           <xng-breadcrumb></xng-breadcrumb>
         </div>
       </div>

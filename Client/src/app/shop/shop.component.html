@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
-    <section class="col-3">
-      <h5 class="text-warning ml-3">Sort</h5>
-      <select class="form-control mb-3" (change)="onSortSelected($event)">
+    <section class="col-3" *ngIf="brands && types">
+      <h5 class="ml-3 text-warning">Sort</h5>
+      <select class="mb-3 form-control" (change)="onSortSelected($event)">
         <option *ngFor="let option of sortOptions" [value]="option.value">
           {{ option.name }}
         </option>
       </select>
 
-      <h5 class="text-warning ml-3">Brands</h5>
-      <ul class="list-group my-3">
+      <h5 class="ml-3 text-warning">Brands</h5>
+      <ul class="my-3 list-group">
         <li
           class="list-group-item"
           *ngFor="let brand of brands"
@@ -20,8 +20,8 @@
           {{ brand.name }}
         </li>
       </ul>
-      <h5 class="text-warning ml-3">Types</h5>
-      <ul class="list-group my-3">
+      <h5 class="ml-3 text-warning">Types</h5>
+      <ul class="my-3 list-group">
         <li
           class="list-group-item"
           *ngFor="let type of types"
@@ -35,25 +35,25 @@
     </section>
 
     <section class="col-9">
-      <div class="d-flex justify-content-between align-items-center pb-2">
+      <div class="pb-2 d-flex justify-content-between align-items-center">
         <app-paging-header
           [count]="count"
           [pageIndex]="shopParams.pageIndex"
           [pageSize]="shopParams.pageSize"
         ></app-paging-header>
-        <div class="d-flex form-inline align-items-center gap-2 mt2">
+        <div class="gap-2 d-flex form-inline align-items-center mt2">
           <input
             #search
             type="text"
-            class="form-control form-control-md mr-2"
+            class="mr-2 form-control form-control-md"
             style="width: 270px"
             placeholder="Search"
             (keyup.enter)="onSearch()"
           />
-          <button class="btn btn-outline-primary my-2" (click)="onSearch()">
+          <button class="my-2 btn btn-outline-primary" (click)="onSearch()">
             Search
           </button>
-          <button class="btn btn-outline-success my-2" (click)="onReset()">
+          <button class="my-2 btn btn-outline-success" (click)="onReset()">
             Reset
           </button>
         </div>
