@@ -11,15 +11,33 @@
       bg-white
     "
   >
-    <img src="/assets/images/logo.png" style="max-height: 70px" alt="logo" />
+    <img
+      src="/assets/images/logo.png"
+      style="max-height: 70px"
+      alt="logo"
+      class="logo"
+      routerLink="/"
+    />
 
     <nav
       class="d-inline-flex mt-2 mt-md-0 text-uppercase"
       style="font-size: larger"
     >
-      <a class="me-3 py-2 text-dark text-decoration-none" href="#">Features</a>
-      <a class="me-3 py-2 text-dark text-decoration-none" href="#">Shop</a>
-      <a class="py-2 text-dark text-decoration-none" href="#">Contact</a>
+      <a
+        class="me-3 py-2 text-decoration-none"
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a
+        class="me-3 py-2 text-decoration-none"
+        routerLink="/shop"
+        routerLinkActive="active"
+        href="#"
+        >Shop</a
+      >
+      <a class="py-2 text-decoration-none" href="#">Contact</a>
     </nav>
     <div class="d-flex align-items-center">
       <a class="position-relative">

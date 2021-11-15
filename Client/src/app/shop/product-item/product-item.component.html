@@ -4,10 +4,11 @@
       src="{{ product?.pictureUrl }}"
       alt="{{ product?.name }}"
       class="img-fluid"
+      routerLink="/shop/{{ product?.id }}"
     />
 
     <div class="card-body">
-      <p class="card-text">
+      <p class="card-text" routerLink="/shop/{{ product?.id }}">
         {{ product?.name }}
       </p>
       <span class="mb-2"> {{ product?.price | currency }}</span>
@@ -17,7 +18,13 @@
             type="button"
             class="btn btn-outline-secondary fa fa-shopping-cart mx-2"
           ></button>
-          <button type="button" class="btn btn-outline-secondary">View</button>
+          <button
+            routerLink="/shop/{{ product?.id }}"
+            type="button"
+            class="btn btn-outline-secondary"
+          >
+            View
+          </button>
         </div>
       </div>
     </div>
