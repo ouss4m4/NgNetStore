@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("v1")));
-builder.Services.AddSingleton<ConnectionMultiplexer>(c =>
+builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
 {
     var config = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
     return ConnectionMultiplexer.Connect(config);
