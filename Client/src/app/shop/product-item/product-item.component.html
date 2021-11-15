@@ -1,32 +1,33 @@
 <div class="col">
-  <div class="card shadow-sm">
-    <img
-      src="{{ product?.pictureUrl }}"
-      alt="{{ product?.name }}"
-      class="img-fluid"
-      routerLink="/shop/{{ product?.id }}"
-    />
-
+  <div class="shadow-sm card">
+    <div class="cursor-pointer image position-relative">
+      <img
+        src="{{ product?.pictureUrl }}"
+        alt="{{ product?.name }}"
+        class="img-fluid"
+        routerLink="/shop/{{ product?.id }}"
+      />
+      <div
+        class="d-flex align-items-center justify-content-around hover-overlay"
+      >
+        <button
+          type="button"
+          class="mx-2 btn btn-outline-primary fa fa-shopping-cart"
+        ></button>
+        <button
+          routerLink="/shop/{{ product?.id }}"
+          type="button"
+          class="btn btn-outline-primary"
+        >
+          View
+        </button>
+      </div>
+    </div>
     <div class="card-body">
       <p class="card-text" routerLink="/shop/{{ product?.id }}">
         {{ product?.name }}
       </p>
       <span class="mb-2"> {{ product?.price | currency }}</span>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="btn-group">
-          <button
-            type="button"
-            class="btn btn-outline-secondary fa fa-shopping-cart mx-2"
-          ></button>
-          <button
-            routerLink="/shop/{{ product?.id }}"
-            type="button"
-            class="btn btn-outline-secondary"
-          >
-            View
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
