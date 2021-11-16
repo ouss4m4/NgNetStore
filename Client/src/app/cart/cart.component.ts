@@ -7,5 +7,6 @@ import { CartService } from './cart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
+  public cart$ = this.cartServ.cart$;
   constructor(private cartServ: CartService) {}
 }

@@ -42,7 +42,9 @@
     <div class="d-flex align-items-center">
       <a routerLink="/cart" class="position-relative">
         <i class="mr-5 fa fa-shopping-cart fa-2x text-dark"></i>
-        <div class="cart-no">8</div>
+        <div *ngIf="cart$ | async as cart" class="cart-no">
+          {{ cart.items.length }}
+        </div>
       </a>
       <a href="" class="d-block btn btn-outline-secondary ms-2">Sign up</a>
       <a href="" class="d-block btn btn-outline-secondary ms-3">Login</a>

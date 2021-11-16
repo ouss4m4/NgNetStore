@@ -13,5 +13,6 @@ const Routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [CommonModule, RouterModule.forChild(Routes)],
+  exports: [RouterModule],
 })
 export class CartRoutingModule {}
