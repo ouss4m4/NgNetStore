@@ -14,13 +14,24 @@
         <i
           class="mr-2 fa fa-minus-circle text-warning"
           style="cursor: pointer; font-size: 2em"
+          role="button"
+          (click)="decrement()"
         ></i>
-        <span class="font-weight-bold" style="font-size: 1.5em">2</span>
+        <span class="font-weight-bold" style="font-size: 1.5em">{{
+          quantity
+        }}</span>
         <i
           class="mx-2 fa fa-plus-circle text-warning"
           style="cursor: pointer; font-size: 2em"
+          role="button"
+          (click)="increment()"
         ></i>
-        <button class="btn btn-outline-secondary btn-lg">Add To Cart</button>
+        <button
+          class="btn btn-outline-secondary btn-lg"
+          (click)="addItemToCart()"
+        >
+          Add To Cart
+        </button>
       </div>
     </div>
     <div class="mt-5 row">

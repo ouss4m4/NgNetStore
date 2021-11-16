@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ICart, ICartItem } from '../shared/models/cart';
 import { CartService } from './cart.service';
 
 @Component({
@@ -9,4 +10,16 @@ import { CartService } from './cart.service';
 export class CartComponent {
   public cart$ = this.cartServ.cart$;
   constructor(private cartServ: CartService) {}
+
+  onRemoveClicked(item: ICartItem) {
+    this.cartServ.removeItemFromCart(item);
+  }
+
+  onItemIncrementClick(item: ICartItem) {
+    this.cartServ.incrementItemQuantity(item);
+  }
+
+  onItemDecrementCLick(item: ICartItem) {
+    this.cartServ.decrementItemQuantity(item);
+  }
 }

@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private cartService: CartService) {}
   ngOnInit() {
     const cartId = localStorage.getItem('cart_id');
-    console.log('got someth', cartId);
     if (cartId) {
       this.cartService.fetchCart(cartId).subscribe(console.log, console.log);
     }

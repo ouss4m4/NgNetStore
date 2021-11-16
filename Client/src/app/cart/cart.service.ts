@@ -10,14 +10,19 @@ import { IProduct } from '../shared/models/product';
   providedIn: 'root',
 })
 export class CartService {
-  public baseUrl = environment.apiUrl;
-  private _cart$ = new BehaviorSubject<ICart>(new Cart('initial'));
-  public cart$ = this._cart$.asObservable();
-  private _cartTotal$ = new BehaviorSubject<ICartTotals>({
+  private initialCart: ICart = {
+    id: 'initial',
+    items: [],
+  };
+  private initialTotal: ICartTotals = {
     shipping: 0,
     subtotal: 0,
     total: 0,
-  });
+  };
+  public baseUrl = environment.apiUrl;
+  private _cart$ = new BehaviorSubject<ICart>(this.initialCart);
+  public cart$ = this._cart$.asObservable().pipe(tap(console.log));
+  private _cartTotal$ = new BehaviorSubject<ICartTotals>(this.initialTotal);
   public cartTotal$ = this._cartTotal$.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -52,6 +57,49 @@ export class CartService {
         : this.createCart();
     cart.items = this.handleAddItemToCart(cart.items, itemToAdd, quantity);
     this.setCart(cart);
+  }
+
+  incrementItemQuantity(item: ICartItem) {
+    const cart = this.getCurrentCartValue();
+    const itemIndex = cart.items.findIndex((i) => i.id === item.id);
+    if (itemIndex === -1) return;
+    cart.items[itemIndex].quantity++;
+
+    this.setCart(cart);
+  }
+
+  decrementItemQuantity(item: ICartItem) {
+    const cart = this.getCurrentCartValue();
+    const itemIndex = cart.items.findIndex((i) => i.id === item.id);
+    if (itemIndex === -1) return;
+    const cartItem = cart.items[itemIndex];
+    if (cartItem.quantity > 1) {
+      cartItem.quantity--;
+      this.setCart(cart);
+    } else {
+      this.removeItemFromCart(item);
+    }
+  }
+  public removeItemFromCart(item: ICartItem) {
+    const cart = this.getCurrentCartValue();
+
+    if (cart.items.some((x) => x.id === item.id)) {
+      cart.items = cart.items.filter((x) => x.id !== item.id);
+      if (cart.items.length > 0) {
+        this.setCart(cart);
+      } else {
+        this.abandonCart(cart);
+      }
+    }
+  }
+  abandonCart(cart: ICart) {
+    return this.http
+      .delete(this.baseUrl + '/cart?id=' + cart.id)
+      .subscribe((res) => {
+        this._cart$.next(this.initialCart);
+        this._cartTotal$.next(this.initialTotal);
+        localStorage.removeItem('cart_id');
+      }, console.log);
   }
 
   private calculateTotals() {

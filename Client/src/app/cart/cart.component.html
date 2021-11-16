@@ -65,6 +65,7 @@
                         <i
                           class="me-2 fa fa-minus-circle text-warning"
                           style="cursor: pointer; font-size: 2em"
+                          (click)="onItemDecrementCLick(item)"
                         ></i>
                         <span
                           class="font-weight-bold"
@@ -74,6 +75,7 @@
                         <i
                           class="ms-2 fa fa-plus-circle text-warning"
                           style="cursor: pointer; font-size: 2em"
+                          (click)="onItemIncrementClick(item)"
                         ></i>
                       </div>
                     </td>
@@ -82,7 +84,11 @@
                     </td>
                     <td class="align-middle text-center">
                       <a class="text-danger cursor-pointer" role="button">
-                        <i class="fa fa-trash" style="font-size: 2em"></i>
+                        <i
+                          class="fa fa-trash"
+                          style="font-size: 2em"
+                          (click)="onRemoveClicked(item)"
+                        ></i>
                       </a>
                     </td>
                   </tr>
@@ -96,7 +102,7 @@
             <app-order-totals></app-order-totals>
             <a
               routerLink="/checkout"
-              class="btn btn-outline-primary py-2 btn-block"
+              class="btn btn-primary py-2 d-block"
               role="button"
             >
               Proceed to checkout
