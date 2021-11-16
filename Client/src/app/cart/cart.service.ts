@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Cart, ICart, ICartItem } from '../shared/models/cart';
+import { Cart, ICart, ICartItem, ICartTotals } from '../shared/models/cart';
 import { IProduct } from '../shared/models/product';
 
 @Injectable({
@@ -13,6 +13,12 @@ export class CartService {
   public baseUrl = environment.apiUrl;
   private _cart$ = new BehaviorSubject<ICart>(new Cart('initial'));
   public cart$ = this._cart$.asObservable();
+  private _cartTotal$ = new BehaviorSubject<ICartTotals>({
+    shipping: 0,
+    subtotal: 0,
+    total: 0,
+  });
+  public cartTotal$ = this._cartTotal$.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +26,7 @@ export class CartService {
     return this.http.get<ICart>(this.baseUrl + '/cart?id=' + id).pipe(
       tap((cart) => {
         this._cart$.next(cart);
+        this.calculateTotals();
       })
     );
   }
@@ -28,8 +35,8 @@ export class CartService {
     return this.http
       .post<ICart>(this.baseUrl + '/cart', cart)
       .subscribe((res) => {
-        console.log('serv resp', res);
         this._cart$.next(res);
+        this.calculateTotals();
       }, console.log);
   }
 
@@ -45,6 +52,21 @@ export class CartService {
         : this.createCart();
     cart.items = this.handleAddItemToCart(cart.items, itemToAdd, quantity);
     this.setCart(cart);
+  }
+
+  private calculateTotals() {
+    const cart = this.getCurrentCartValue();
+    const shipping = 0;
+    const subtotal = cart.items.reduce(
+      (acc, val) => (acc += val.price * val.quantity),
+      0
+    );
+    const total = shipping + subtotal;
+    this._cartTotal$.next({
+      shipping,
+      subtotal,
+      total,
+    });
   }
 
   private handleAddItemToCart(

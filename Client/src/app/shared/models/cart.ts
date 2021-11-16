@@ -23,3 +23,9 @@ export class Cart implements ICart {
     this.items = items;
   }
 }
+
+export interface ICartTotals {
+  shipping: number;
+  subtotal: number;
+  total: number;
+}
