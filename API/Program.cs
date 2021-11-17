@@ -27,7 +27,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
 });
 
 builder.Services.AddApplicationServices();
-builder.Services.AppIdentityServices();
+builder.Services.AppIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
 builder.Services.AddCors(opts =>
 {
@@ -68,6 +68,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
