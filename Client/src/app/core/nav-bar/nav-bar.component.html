@@ -46,8 +46,54 @@
           {{ cart.items.length }}
         </div>
       </a>
-      <a href="" class="d-block btn btn-outline-secondary ms-2">Sign up</a>
-      <a href="" class="d-block btn btn-outline-secondary ms-3">Login</a>
+      <ng-container *ngIf="(currentUser$ | async)?.email === ''; else logged">
+        <a
+          routerLink="/account/register"
+          role="button"
+          class="d-block btn btn-outline-secondary ms-2"
+          >Sign up</a
+        >
+        <a
+          routerLink="/account/login"
+          role="button"
+          class="d-block btn btn-outline-secondary ms-3"
+          >Login</a
+        >
+      </ng-container>
+      <ng-template #logged>
+        <div class="dropdown ms-3 me-5" dropdown>
+          <a class="dropdown-toggle" role="button" dropdownToggle
+            ><strong
+              >Welcome {{ (currentUser$ | async)?.displayName }}</strong
+            ></a
+          >
+          <div
+            role="button"
+            class="dropdown-menu dropdown-menu-right"
+            *dropdownMenu=""
+          >
+            <a
+              routerLink="/cart"
+              class="dropdown-item d-flex align-items-center py-2"
+            >
+              <i class="fa fa-shopping-cart me-3"></i>Shopping Cart
+            </a>
+            <a
+              routerLink="/orders"
+              class="dropdown-item d-flex align-items-center py-2"
+            >
+              <i class="fa fa-history me-3"></i>View Orders
+            </a>
+            <div class="dropdown-divier"></div>
+            <a
+              (click)="logout()"
+              class="dropdown-item d-flex align-items-center py-2"
+            >
+              <i class="fa fa-sign-out me-3"></i>Logout
+            </a>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

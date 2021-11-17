@@ -30,6 +30,14 @@ const routes: Routes = [
       import('./checkout/checkout.module').then((mod) => mod.CheckoutModule),
   },
   {
+    path: 'account',
+    loadChildren: () =>
+      import('./account/account.module').then((mod) => mod.AccountModule),
+    data: {
+      breadcrumb: { skip: true },
+    },
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
