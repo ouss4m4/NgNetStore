@@ -1,3 +1,5 @@
+using API.Dtos;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +11,12 @@ namespace API.Controllers
     public class CartController : BaseApiController
     {
         private readonly ICartRepository _cartRepo;
+        private readonly IMapper _mapper;
 
-        public CartController(ICartRepository cartRepo)
+        public CartController(ICartRepository cartRepo, IMapper mapper)
         {
             _cartRepo = cartRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -23,10 +27,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Cart>> UpdateCart([FromBody] Cart cart)
+        public async Task<ActionResult<Cart>> UpdateCart(CartDto cartDto)
         {
+            var cart = _mapper.Map<CartDto, Cart>(cartDto);
             var newCart = await _cartRepo.UpdateCartAsync(cart);
-
             return Ok(newCart);
 
         }
