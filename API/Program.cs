@@ -2,6 +2,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Middleware;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -14,6 +15,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("v1")));
+builder.Services.AddDbContext<AppIdentityDbContext>(x =>
+    x.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
 builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
 {
     var config = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
