@@ -2,6 +2,7 @@ using System.Reflection;
 using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data
 {
@@ -28,13 +29,21 @@ namespace Infrastructure.Data
             {
                 foreach (var entityType in modelBuilder.Model.GetEntityTypes())
                 {
-                    var props = entityType.ClrType.GetProperties()
+                    var decimalProps = entityType.ClrType.GetProperties()
                         .Where(p => p.PropertyType == typeof(decimal));
+                    var dateTimeprops = entityType.ClrType.GetProperties()
+                        .Where(p => p.PropertyType == typeof(DateTimeOffset));
 
-                    foreach (var property in props)
+                    foreach (var property in decimalProps)
                     {
                         modelBuilder.Entity(entityType.Name)
                             .Property(property.Name).HasConversion<double>();
+                    }
+
+                    foreach (var property in dateTimeprops)
+                    {
+                        modelBuilder.Entity(entityType.Name)
+                            .Property(property.Name).HasConversion(new DateTimeOffsetToBinaryConverter());
                     }
 
                 }
