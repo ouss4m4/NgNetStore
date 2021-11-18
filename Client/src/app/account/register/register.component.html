@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="text-center form-signin mt-8">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h5 class="h5 mb-3 fw-normal">Create an account</h5>
+
+    <app-text-input
+      class="d-block my-2"
+      formControlName="displayName"
+      [label]="'Name'"
+    ></app-text-input>
+    <app-text-input
+      class="d-block my-2"
+      formControlName="email"
+      [label]="'Email'"
+    ></app-text-input>
+    <app-text-input
+      class="d-block my-2"
+      formControlName="password"
+      [label]="'password'"
+      [type]="'password'"
+    ></app-text-input>
+    <!-- <span *ngIf="registerForm.get('password')?.errors?.pattern">
+      Password must be at least 6 characters and contain 1 Uppercase, 1
+      LowerCase and 1 Special character</span
+    > -->
+    <ul class="text-danger list-unstyled">
+      <li *ngFor="let err of formErrors">{{ err }}</li>
+    </ul>
+    <button
+      [disabled]="registerForm.invalid"
+      class="w-100 btn btn-lg btn-primary"
+      type="submit"
+    >
+      Create
+    </button>
+    <p class="mt-5 mb-3 text-muted">©NgNetStore</p>
+  </form>
+</div>
