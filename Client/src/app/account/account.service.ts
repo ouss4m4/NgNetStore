@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { CartService } from '../cart/cart.service';
 import { IUser } from '../shared/models/user';
 
 @Injectable({
@@ -21,7 +22,11 @@ export class AccountService {
   private _currentUser$ = new BehaviorSubject<IUser>(this.nullUser);
   public currentUser$ = this._currentUser$.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   public getCurrentUserValue() {
     return this._currentUser$.value;
@@ -67,6 +72,7 @@ export class AccountService {
     localStorage.removeItem('token');
     localStorage.removeItem('cart_id');
     this._currentUser$.next(this.nullUser);
+    this.cartService.clearCart();
     this.router.navigateByUrl('/', { replaceUrl: true });
   }
 

@@ -36,6 +36,10 @@ export class CartService {
     );
   }
 
+  clearCart() {
+    this._cart$.next(this.initialCart);
+  }
+
   setCart(cart: ICart) {
     return this.http
       .post<ICart>(this.baseUrl + '/cart', cart)

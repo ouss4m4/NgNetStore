@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AsyncValidatorFn,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { of, timer } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -24,6 +31,7 @@ export class RegisterComponent {
           Validators.required,
           Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'),
         ],
+        [this.checkIfEmailExists()],
       ],
       password: [
         null,
@@ -47,5 +55,21 @@ export class RegisterComponent {
         this.formErrors = err.errors;
       }
     );
+  }
+
+  checkIfEmailExists(): AsyncValidatorFn {
+    return (control) => {
+      return timer(1000).pipe(
+        switchMap(() => {
+          if (!control.value) return of(null);
+          return this.accountService.checkEmailExists(control.value).pipe(
+            map((res) => {
+              console.log('what ?', res, res === false);
+              return res ? { emailExists: true } : null;
+            })
+          );
+        })
+      );
+    };
   }
 }
