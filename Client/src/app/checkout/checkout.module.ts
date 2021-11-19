@@ -14,9 +14,20 @@ const routes: Routes = [
     path: '',
     component: CheckoutComponent,
   },
+  {
+    path: 'success',
+    component: CheckoutSuccessComponent,
+  },
 ];
 @NgModule({
-  declarations: [CheckoutComponent, CheckoutAddressComponent, CheckoutDeliveryComponent, CheckoutReviewComponent, CheckoutPaymentComponent, CheckoutSuccessComponent],
+  declarations: [
+    CheckoutComponent,
+    CheckoutAddressComponent,
+    CheckoutDeliveryComponent,
+    CheckoutReviewComponent,
+    CheckoutPaymentComponent,
+    CheckoutSuccessComponent,
+  ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
 })
 export class CheckoutModule {}

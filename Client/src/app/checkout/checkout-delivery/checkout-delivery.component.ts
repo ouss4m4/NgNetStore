@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CartService } from '../../cart/cart.service';
 import { IDeliveryMethod } from '../../shared/models/deliveryMethod';
 import { CheckoutService } from '../checkout.service';
 
@@ -11,11 +12,18 @@ import { CheckoutService } from '../checkout.service';
 export class CheckoutDeliveryComponent implements OnInit {
   @Input() checkoutForm!: FormGroup;
   public deliveryMethods: IDeliveryMethod[] = [];
-  constructor(private checkoutService: CheckoutService) {}
+  constructor(
+    private checkoutService: CheckoutService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     this.checkoutService.getAvailableDelivery().subscribe((dms) => {
       this.deliveryMethods = dms;
     });
+  }
+
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.cartService.setShippingPrice(deliveryMethod);
   }
 }

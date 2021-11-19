@@ -1,7 +1,14 @@
 <div class="mt-4" [formGroup]="checkoutForm">
   <div class="d-flex justify-content-between align-items-center">
     <h4>Shipping address</h4>
-    <button class="btn btn-outline-success mb-4">
+    <button
+      [disabled]="
+        !checkoutForm.get('addressForm')!.valid ||
+        !checkoutForm.get('addressForm')!.dirty
+      "
+      (click)="saveUserAddress()"
+      class="btn btn-outline-success mb-4"
+    >
       Save as default address
     </button>
   </div>
@@ -37,7 +44,7 @@
     <div class="form-group col-6 my-2">
       <app-text-input
         [label]="'Zipcode'"
-        formControlName="zipcode"
+        formControlName="zipCode"
       ></app-text-input>
     </div>
   </div>

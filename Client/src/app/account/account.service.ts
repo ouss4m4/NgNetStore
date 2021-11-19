@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { CartService } from '../cart/cart.service';
-import { IUser } from '../shared/models/user';
+import { IAddress, IUser } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -78,5 +78,13 @@ export class AccountService {
 
   public checkEmailExists(email: string) {
     return this.http.get(this.baseUrl + '/account/emailexists?email=' + email);
+  }
+
+  public getUserAddress() {
+    return this.http.get<IAddress>(this.baseUrl + '/account/address');
+  }
+
+  public updateUserAddress(address: IAddress) {
+    return this.http.put<IAddress>(this.baseUrl + '/account/address', address);
   }
 }
