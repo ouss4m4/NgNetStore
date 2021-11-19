@@ -11,7 +11,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class HeaderInterceptor implements HttpInterceptor {
+export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router, private toastr: ToastrService) {}
 
   intercept(
@@ -19,6 +19,8 @@ export class HeaderInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const headers = req.headers.set('Content-Type', 'application/json');
+    const token = localStorage.getItem('token');
+    headers.set('Authorization', `Bearer ${token}`);
     const authReq = req.clone({ headers });
     return next.handle(authReq).pipe(
       catchError((err) => {

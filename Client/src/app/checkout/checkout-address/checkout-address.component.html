@@ -1,1 +1,55 @@
-<p>checkout-address works!</p>
+<div class="mt-4" [formGroup]="checkoutForm">
+  <div class="d-flex justify-content-between align-items-center">
+    <h4>Shipping address</h4>
+    <button class="btn btn-outline-success mb-4">
+      Save as default address
+    </button>
+  </div>
+  <div class="row" formGroupName="addressForm">
+    <div class="form-group col-6 my-2">
+      <app-text-input
+        [label]="'First Name'"
+        formControlName="firstName"
+      ></app-text-input>
+    </div>
+
+    <div class="form-group col-6 my-2">
+      <app-text-input
+        [label]="'Last Name'"
+        formControlName="lastName"
+      ></app-text-input>
+    </div>
+    <div class="form-group col-6 my-2">
+      <app-text-input
+        [label]="'street Name'"
+        formControlName="street"
+      ></app-text-input>
+    </div>
+    <div class="form-group col-6 my-2">
+      <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+    </div>
+    <div class="form-group col-6 my-2">
+      <app-text-input
+        [label]="'State'"
+        formControlName="state"
+      ></app-text-input>
+    </div>
+    <div class="form-group col-6 my-2">
+      <app-text-input
+        [label]="'Zipcode'"
+        formControlName="zipcode"
+      ></app-text-input>
+    </div>
+  </div>
+</div>
+
+<div
+  class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
+>
+  <button class="btn btn-outline-primary" routerLink="/cart">
+    <i class="fa fa-angle-left"></i> Back To Cart
+  </button>
+  <button class="btn btn-outline-primary" cdkStepperNext>
+    Go To Delivery<i class="fa fa-angle-right"></i>
+  </button>
+</div>

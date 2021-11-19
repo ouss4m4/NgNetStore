@@ -7,94 +7,12 @@
       <div class="container">
         <div class="row">
           <div class="col-12 py-5 mb-1">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="border-0 bg-light" scope="col">
-                      <div class="p-2 px-3 text-uppercase">Product</div>
-                    </th>
-                    <th class="border-0 bg-light" scope="col">
-                      <div class="py-2 text-uppercase">Price</div>
-                    </th>
-                    <th class="border-0 bg-light" scope="col">
-                      <div class="py-2 text-uppercase">Quantity</div>
-                    </th>
-                    <th class="border-0 bg-light" scope="col">
-                      <div class="py-2 text-uppercase">Total</div>
-                    </th>
-                    <th class="border-0 bg-light" scope="col">
-                      <div class="py-2 text-uppercase">Remove</div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of cart.items">
-                    <th scope="row">
-                      <div class="p-2 d-flex">
-                        <img
-                          src="{{ item.pictureUrl }}"
-                          alt="{{ item.productName }}"
-                          class="img-fluid"
-                          style="max-height: 55px"
-                        />
-                        <div class="ms-3 d-inline align-middle">
-                          <h5 class="mb-0">
-                            <a
-                              routerLink="/shop/{{ item.id }}"
-                              class="text-dark"
-                              >{{ item.productName }}</a
-                            >
-                          </h5>
-                          <span
-                            class="
-                              text-muted
-                              font-weight-normal font-italic
-                              d-block
-                            "
-                            >Type: {{ item.type }}</span
-                          >
-                        </div>
-                      </div>
-                    </th>
-                    <td class="align-middle">
-                      <strong>{{ item.price | currency }}</strong>
-                    </td>
-                    <td class="align-middle">
-                      <div class="d-flex align-items-center">
-                        <i
-                          class="me-2 fa fa-minus-circle text-warning"
-                          style="cursor: pointer; font-size: 2em"
-                          (click)="onItemDecrementCLick(item)"
-                        ></i>
-                        <span
-                          class="font-weight-bold"
-                          style="font-size: 1.5em"
-                          >{{ item.quantity }}</span
-                        >
-                        <i
-                          class="ms-2 fa fa-plus-circle text-warning"
-                          style="cursor: pointer; font-size: 2em"
-                          (click)="onItemIncrementClick(item)"
-                        ></i>
-                      </div>
-                    </td>
-                    <td class="align-middle">
-                      <strong>{{ item.price * item.quantity }}</strong>
-                    </td>
-                    <td class="align-middle text-center">
-                      <a class="text-danger cursor-pointer" role="button">
-                        <i
-                          class="fa fa-trash"
-                          style="font-size: 2em"
-                          (click)="onRemoveClicked(item)"
-                        ></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <app-cart-summary
+              (remove)="onRemoveClicked($event)"
+              (increment)="onItemIncrementClick($event)"
+              (decrement)="onItemDecrementCLick($event)"
+              [allowEdits]="true"
+            ></app-cart-summary>
           </div>
         </div>
         <div class="row">
