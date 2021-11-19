@@ -70,9 +70,9 @@ export class AccountService {
 
   public logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('cart_id');
+    // localStorage.removeItem('cart_id');
     this._currentUser$.next(this.nullUser);
-    this.cartService.clearCart();
+    // this.cartService.clearCart();
     this.router.navigateByUrl('/', { replaceUrl: true });
   }
 

@@ -30,6 +30,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('./checkout/checkout.module').then((mod) => mod.CheckoutModule),
     canActivate: [AuthGuard],
+    data: {
+      breadcrumb: { skip: true },
+    },
   },
   {
     path: 'account',
