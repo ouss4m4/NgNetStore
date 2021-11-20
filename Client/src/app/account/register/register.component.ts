@@ -64,7 +64,6 @@ export class RegisterComponent {
           if (!control.value) return of(null);
           return this.accountService.checkEmailExists(control.value).pipe(
             map((res) => {
-              console.log('what ?', res, res === false);
               return res ? { emailExists: true } : null;
             })
           );

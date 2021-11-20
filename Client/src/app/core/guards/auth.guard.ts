@@ -19,10 +19,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    console.log('guard check');
     return this.accountService.currentUser$.pipe(
       map((auth) => {
-        console.log('useR?', auth);
         if (auth.email === '') {
           this.router.navigate(['account/login'], {
             queryParams: { returnUrl: state.url },

@@ -22,17 +22,31 @@ export class CartService {
   };
   public baseUrl = environment.apiUrl;
   private _cart$ = new BehaviorSubject<ICart>(this.initialCart);
-  public cart$ = this._cart$.asObservable().pipe(tap(console.log));
+  public cart$ = this._cart$.asObservable();
   private _cartTotal$ = new BehaviorSubject<ICartTotals>(this.initialTotal);
   public cartTotal$ = this._cartTotal$.asObservable();
   public shipping = 0;
 
   constructor(private http: HttpClient) {}
 
+  createPaymentIntent() {
+    return this.http
+      .post<Cart>(
+        this.baseUrl + '/payments/' + this.getCurrentCartValue().id,
+        {}
+      )
+      .pipe(
+        tap((cart) => {
+          this._cart$.next(cart);
+        })
+      );
+  }
+
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
     const cart = this.getCurrentCartValue();
     cart.deliveryMethodId = deliveryMethod.id;
+    cart.shippingPrice = deliveryMethod.price;
     this.calculateTotals();
     this.setCart(cart);
   }
@@ -41,6 +55,9 @@ export class CartService {
     return this.http.get<ICart>(this.baseUrl + '/cart?id=' + id).pipe(
       tap((cart) => {
         this._cart$.next(cart);
+        if (cart.shippingPrice) {
+          this.shipping = cart.shippingPrice;
+        }
         this.calculateTotals();
       })
     );

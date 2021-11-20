@@ -38,7 +38,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.accountService.getUserAddress().subscribe((address) => {
-      console.log('user address?', address);
       if (address) {
         this.checkoutForm.get('addressForm')?.patchValue(address);
       }

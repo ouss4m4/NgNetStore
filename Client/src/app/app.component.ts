@@ -25,15 +25,13 @@ export class AppComponent implements OnInit {
   loadCurrentUser() {
     const token = localStorage.getItem('token');
     if (token) {
-      this.accountService
-        .loadCurrentUser(token)
-        .subscribe(() => {}, console.log);
+      this.accountService.loadCurrentUser(token).subscribe();
     }
   }
   getCart() {
     const cartId = localStorage.getItem('cart_id');
     if (cartId) {
-      this.cartService.fetchCart(cartId).subscribe(console.log, console.log);
+      this.cartService.fetchCart(cartId).subscribe();
     }
   }
 }

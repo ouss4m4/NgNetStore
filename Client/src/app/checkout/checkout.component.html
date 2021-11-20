@@ -22,7 +22,7 @@
           [label]="'Review'"
           [completed]="checkoutForm.get('deliveryForm')?.valid"
         >
-          <app-checkout-review></app-checkout-review>
+          <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
         </cdk-step>
         <cdk-step
           [label]="'Payment'"

@@ -5,6 +5,7 @@ export interface ICart {
   deliveryMethodId?: number;
   clientSecret?: string;
   paymentIntentId?: string;
+  shippingPrice?: number;
 }
 
 export interface ICartItem {
@@ -21,6 +22,7 @@ export class Cart implements ICart {
   id: string;
   items: ICartItem[];
   deliveryMethodId?: number | undefined;
+  shippingPrice?: number | undefined;
   clientSecret?: string | undefined;
   paymentIntentId?: string | undefined;
 
@@ -29,13 +31,15 @@ export class Cart implements ICart {
     items = [],
     deliveryMethodId?: number,
     clientSecret?: string,
-    paymentIntentId?: string
+    paymentIntentId?: string,
+    shippingPrice?: number
   ) {
     this.id = id;
     this.items = items;
     deliveryMethodId && (this.deliveryMethodId = deliveryMethodId);
     clientSecret && (this.clientSecret = clientSecret);
     paymentIntentId && (this.paymentIntentId = paymentIntentId);
+    shippingPrice && (this.shippingPrice = shippingPrice);
   }
 }
 
