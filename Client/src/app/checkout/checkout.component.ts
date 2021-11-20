@@ -43,11 +43,12 @@ export class CheckoutComponent implements OnInit {
         this.checkoutForm.get('addressForm')?.patchValue(address);
       }
     }, console.log);
-  }
-
-  createOrder(order: IOrderToCreate) {
-    this.checkoutService.createOrder(order).subscribe((res) => {
-      this.cartService.clearCart();
-    });
+    let cart = this.cartService.getCurrentCartValue();
+    if (cart.deliveryMethodId !== null) {
+      this.checkoutForm
+        .get('deliveryForm')
+        ?.get('deliveryMethod')
+        ?.patchValue(cart.deliveryMethodId?.toString());
+    }
   }
 }

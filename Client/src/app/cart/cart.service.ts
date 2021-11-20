@@ -31,7 +31,10 @@ export class CartService {
 
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
+    const cart = this.getCurrentCartValue();
+    cart.deliveryMethodId = deliveryMethod.id;
     this.calculateTotals();
+    this.setCart(cart);
   }
 
   fetchCart(id: string) {

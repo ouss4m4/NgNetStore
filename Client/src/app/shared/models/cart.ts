@@ -2,6 +2,9 @@ import { v4 } from 'uuid';
 export interface ICart {
   id: string;
   items: ICartItem[];
+  deliveryMethodId?: number;
+  clientSecret?: string;
+  paymentIntentId?: string;
 }
 
 export interface ICartItem {
@@ -17,10 +20,22 @@ export interface ICartItem {
 export class Cart implements ICart {
   id: string;
   items: ICartItem[];
+  deliveryMethodId?: number | undefined;
+  clientSecret?: string | undefined;
+  paymentIntentId?: string | undefined;
 
-  constructor(id = v4(), items = []) {
+  constructor(
+    id = v4(),
+    items = [],
+    deliveryMethodId?: number,
+    clientSecret?: string,
+    paymentIntentId?: string
+  ) {
     this.id = id;
     this.items = items;
+    deliveryMethodId && (this.deliveryMethodId = deliveryMethodId);
+    clientSecret && (this.clientSecret = clientSecret);
+    paymentIntentId && (this.paymentIntentId = paymentIntentId);
   }
 }
 

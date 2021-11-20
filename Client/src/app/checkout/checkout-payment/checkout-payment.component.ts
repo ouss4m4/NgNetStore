@@ -30,10 +30,9 @@ export class CheckoutPaymentComponent implements OnInit {
       (order) => {
         this.toastr.success('Order created successfully');
         // this.cartService.abandonCart(cart);
-        this.cartService.clearCart();
-        const navExt: NavigationExtras = { state: order };
-
-        this.router.navigate(['checkout/success'], navExt);
+        // this.cartService.clearCart();
+        // const navExt: NavigationExtras = { state: order };
+        // this.router.navigate(['checkout/success'], navExt);
       },
       (err) => {
         this.toastr.error(err.message);
