@@ -36,7 +36,7 @@ namespace Infrastructure.Services
             var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, cart.PaymentIntentId);
 
             // Check if order exists (by PaymentIntentId)
-            var spec = new OrderByPaymentIntentWithItemsSpecification(cart.PaymentIntentId);
+            var spec = new OrderByPaymentIntentIdSpecification(cart.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
             // delete old order and replace it with a new one
