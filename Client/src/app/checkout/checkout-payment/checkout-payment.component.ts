@@ -33,18 +33,38 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   cardCvc: any;
   cardErrors: any;
   cardHandler = this.onChange.bind(this);
+  loading = false;
+
+  cardNumberValid = false;
+  cardExpiryValid = false;
+  cardCvcValid = false;
 
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
-  onChange({ error }: any) {
-    if (error) {
-      this.cardErrors = error.message;
+  onChange(event: any) {
+    if (event.error) {
+      this.cardErrors = event.error.message;
     } else {
       this.cardErrors = null;
+    }
+
+    switch (event.elementType) {
+      case 'cardNumber':
+        this.cardNumberValid = event.complete;
+        break;
+      case 'cardExpiry':
+        this.cardExpiryValid = event.complete;
+        break;
+      case 'cardCvc':
+        this.cardCvcValid = event.complete;
+        return;
+      default:
+        break;
     }
   }
 
@@ -67,23 +87,43 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.cardCvc.addEventListener('change', this.cardHandler);
   }
 
-  submitOrder() {
+  async submitOrder() {
+    this.loading = true;
     const cart = this.cartService.getCurrentCartValue();
-    const orderToCreate: IOrderToCreate = this.getOrderToCreate(cart);
-    this.checkoutService.createOrder(orderToCreate).subscribe(
-      (order) => {
-        this.toastr.success('Order created successfully');
+    try {
+      const createdOrder = await this.createOrder(cart);
+      const paymentResult = await this.confirmPaymentWithStripe(cart);
+      if (paymentResult.paymentIntent) {
         // this.cartService.abandonCart(cart);
-        // this.cartService.clearCart();
-        // const navExt: NavigationExtras = { state: order };
-        // this.router.navigate(['checkout/success'], navExt);
-      },
-      (err) => {
-        this.toastr.error(err.message);
-        console.log(err);
+        this.cartService.clearCart();
+        const navExt: NavigationExtras = { state: createdOrder };
+        this.router.navigate(['checkout/success'], navExt);
+      } else {
+        this.toastr.error(paymentResult.error.message, 'Payment Failed');
       }
-    );
+      this.loading = false;
+    } catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
   }
+
+  private async confirmPaymentWithStripe(cart: ICart) {
+    return this.stripe.confirmCardPayment(cart.clientSecret, {
+      payment_method: {
+        card: this.cardNumber,
+        billing_details: {
+          name: this.checkoutForm.get('paymentForm')?.get('nameOnCard')?.value,
+        },
+      },
+    });
+  }
+
+  private async createOrder(cart: ICart) {
+    const orderToCreate: IOrderToCreate = this.getOrderToCreate(cart);
+    return this.checkoutService.createOrder(orderToCreate).toPromise();
+  }
+
   getOrderToCreate(cart: ICart): IOrderToCreate {
     return {
       cartId: cart.id,
@@ -92,6 +132,15 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
         ?.get('deliveryMethod')?.value,
       shipToAddress: this.checkoutForm.get('addressForm')?.value,
     };
+  }
+
+  shouldSubmitButtonDisable(): boolean {
+    return (
+      this.checkoutForm.get('paymentForm')?.invalid ||
+      !this.cardNumberValid ||
+      !this.cardExpiryValid ||
+      !this.cardCvcValid
+    );
   }
 
   ngOnDestroy() {

@@ -25,6 +25,7 @@ namespace Infrastructure.Services
             StripeConfiguration.ApiKey = _config["Stripe:SecretKey"];
 
             var cart = await _cartRepository.GetCartAsync(cartId);
+            if (cart == null) return null;
             decimal shippingPrice = 0;
             if (cart.DeliveryMethodId.HasValue)
             {

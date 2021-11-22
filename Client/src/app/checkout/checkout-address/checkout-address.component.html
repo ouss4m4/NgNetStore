@@ -7,41 +7,41 @@
         !checkoutForm.get('addressForm')!.dirty
       "
       (click)="saveUserAddress()"
-      class="btn btn-outline-success mb-4"
+      class="mb-4 btn btn-outline-success"
     >
       Save as default address
     </button>
   </div>
   <div class="row" formGroupName="addressForm">
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input
         [label]="'First Name'"
         formControlName="firstName"
       ></app-text-input>
     </div>
 
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input
         [label]="'Last Name'"
         formControlName="lastName"
       ></app-text-input>
     </div>
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input
         [label]="'street Name'"
         formControlName="street"
       ></app-text-input>
     </div>
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input [label]="'City'" formControlName="city"></app-text-input>
     </div>
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input
         [label]="'State'"
         formControlName="state"
       ></app-text-input>
     </div>
-    <div class="form-group col-6 my-2">
+    <div class="my-2 form-group col-6">
       <app-text-input
         [label]="'Zipcode'"
         formControlName="zipCode"
@@ -51,12 +51,16 @@
 </div>
 
 <div
-  class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
+  class="float-none mb-5 d-flex justify-content-between flex-column flex-lg-row"
 >
   <button class="btn btn-outline-primary" routerLink="/cart">
     <i class="fa fa-angle-left"></i> Back To Cart
   </button>
-  <button class="btn btn-outline-primary" cdkStepperNext>
+  <button
+    [disabled]="checkoutForm.get('addressForm')!.invalid"
+    class="btn btn-outline-primary"
+    cdkStepperNext
+  >
     Go To Delivery<i class="fa fa-angle-right"></i>
   </button>
 </div>

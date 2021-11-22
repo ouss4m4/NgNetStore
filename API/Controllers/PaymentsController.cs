@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Errors;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,15 @@ namespace API.Controllers
         [HttpPost("{cartId}")]
         public async Task<ActionResult<Cart>> CreateOrUpdatePaymentIntent(string cartId)
         {
-            return await _paymentService.CreateOrUpdatePaymentIntent(cartId);
+            var cart = await _paymentService.CreateOrUpdatePaymentIntent(cartId);
+            if (cart == null)
+            {
+                return BadRequest(new ApiResponse(400, "Cart does not exist"));
+            }
+            else
+            {
+                return cart;
+            }
 
         }
     }

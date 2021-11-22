@@ -9,11 +9,13 @@ namespace Infrastructure.Services
     {
         private readonly ICartRepository _cartRepo;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPaymentService _paymentService;
 
-        public OrderService(ICartRepository cartRepo, IUnitOfWork unitOfWork)
+        public OrderService(ICartRepository cartRepo, IUnitOfWork unitOfWork, IPaymentService paymentService)
         {
             _cartRepo = cartRepo;
             _unitOfWork = unitOfWork;
+            _paymentService = paymentService;
         }
 
         public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string cartId, Address shippingAddress)
@@ -31,15 +33,27 @@ namespace Infrastructure.Services
 
             var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
             var subtotal = items.Sum(item => item.Price * item.Quantity);
-            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal);
-            // @TODO persist order
+            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, cart.PaymentIntentId);
+
+            // Check if order exists (by PaymentIntentId)
+            var spec = new OrderByPaymentIntentWithItemsSpecification(cart.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+            // delete old order and replace it with a new one
+            if (existingOrder != null)
+            {
+                _unitOfWork.Repository<Order>().Delete(existingOrder);
+                await _paymentService.CreateOrUpdatePaymentIntent(cart.PaymentIntentId);
+            }
+
+
+            // Create Order (maybe new one)
             _unitOfWork.Repository<Order>().Add(order);
             var result = await _unitOfWork.Complete();
             if (result <= 0)
             {
                 return null;
             }
-            await _cartRepo.DeleteBasketAsync(cartId);
             return order;
         }
 
