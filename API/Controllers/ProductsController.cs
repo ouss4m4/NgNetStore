@@ -33,6 +33,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductReadDto>>> GetProducts(
             [FromQuery] ProductSpecParams specs)
@@ -47,12 +48,14 @@ namespace API.Controllers
             return Ok(new Pagination<ProductReadDto>(specs.PageIndex, specs.PageSize, totalItems, data));
         }
 
+        [Cached(600)]
         [HttpGet("brands")]
         public async Task<ActionResult<List<ProductBrand>>> GetProductsBrands()
         {
             return Ok(await _brandRepo.ListAllAsync());
         }
 
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<List<ProductType>>> GetProductsTypes()
         {

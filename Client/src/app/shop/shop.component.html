@@ -11,11 +11,12 @@
       <h5 class="ml-3 text-warning">Brands</h5>
       <ul class="my-3 list-group">
         <li
-          class="list-group-item"
+          class="list-group-item my-2"
           *ngFor="let brand of brands"
           [class.active]="brand.id === this.shopParams.brandId"
           [value]="brand.id"
           (click)="onBrandSelected(brand.id)"
+          role="button"
         >
           {{ brand.name }}
         </li>
