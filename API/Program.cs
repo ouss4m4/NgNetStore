@@ -17,9 +17,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfiles));
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<StoreContext>(x =>
-    x.UseSqlite(builder.Configuration.GetConnectionString("v1")));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("v1")));
 builder.Services.AddDbContext<AppIdentityDbContext>(x =>
-    x.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
 {
     var config = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
