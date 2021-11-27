@@ -1,15 +1,6 @@
 <div class="container fixed-top">
   <div
-    class="
-      pb-3
-      mb-4
-      bg-white
-      d-flex
-      flex-column flex-md-row
-      align-items-center
-      justify-content-between
-      border-bottom
-    "
+    class="pb-3 mb-4 bg-white  d-flex flex-column flex-md-row align-items-center justify-content-between border-bottom"
   >
     <img
       src="/assets/images/logo.png"
@@ -19,26 +10,8 @@
       routerLink="/"
     />
 
-    <nav
-      class="mt-2 d-inline-flex mt-md-0 text-uppercase"
-      style="font-size: larger"
-    >
-      <a
-        class="py-2 me-3 text-decoration-none"
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >Home</a
-      >
-      <a
-        class="py-2 me-3 text-decoration-none"
-        routerLink="/shop"
-        routerLinkActive="active"
-        href="#"
-        >Shop</a
-      >
-      <a class="py-2 text-decoration-none" href="#">Contact</a>
-    </nav>
+    <xng-breadcrumb></xng-breadcrumb>
+
     <div class="d-flex align-items-center">
       <a routerLink="/cart" class="position-relative">
         <i class="mr-5 fa fa-shopping-cart fa-2x text-dark"></i>
@@ -74,20 +47,20 @@
           >
             <a
               routerLink="/cart"
-              class="dropdown-item d-flex align-items-center py-2"
+              class="py-2 dropdown-item d-flex align-items-center"
             >
               <i class="fa fa-shopping-cart me-3"></i>Shopping Cart
             </a>
             <a
               routerLink="/orders"
-              class="dropdown-item d-flex align-items-center py-2"
+              class="py-2 dropdown-item d-flex align-items-center"
             >
               <i class="fa fa-history me-3"></i>View Orders
             </a>
             <div class="dropdown-divier"></div>
             <a
               (click)="logout()"
-              class="dropdown-item d-flex align-items-center py-2"
+              class="py-2 dropdown-item d-flex align-items-center"
             >
               <i class="fa fa-sign-out me-3"></i>Logout
             </a>

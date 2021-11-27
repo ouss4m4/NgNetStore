@@ -1,17 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    pathMatch: 'full',
-    data: {
-      breadcrumb: 'Home',
-    },
-  },
   {
     path: 'shop',
     loadChildren: () =>
@@ -50,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/shop',
     pathMatch: 'full',
   },
 ];

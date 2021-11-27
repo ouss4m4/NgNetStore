@@ -1,10 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
 import { CartService } from './cart/cart.service';
-import { IPagination } from './shared/models/pagination';
-import { IProduct } from './shared/models/product';
-import { ShopService } from './shop/shop.service';
 
 @Component({
   selector: 'app-root',
