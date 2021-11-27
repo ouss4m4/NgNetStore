@@ -6,19 +6,19 @@ appsettings.json
 # .NET Core build folders
 bin/
 obj/
-
 # Common node modules locations
 /node_modules
 /wwwroot/node_modules
 **/wwwroot
 ### VisualStudioCode ###
+**/.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-
+publish
 # Local History for Visual Studio Code
 .history/
 
@@ -52,8 +52,10 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-
+wwwroot
+.vscode/**
+.vs/**
 # Windows shortcuts
 *.lnk
-
+**/*/appsettings.json
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudiocode,windows
