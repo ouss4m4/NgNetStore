@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-12 col-lg-8">
       <app-stepper [linearModeSelected]="true" #appStepper>
         <cdk-step
           [label]="'Address'"
@@ -34,7 +34,7 @@
         </cdk-step>
       </app-stepper>
     </div>
-    <div class="col-4">
+    <div class="col-sm-12 col-lg-4">
       <app-order-totals></app-order-totals>
     </div>
   </div>

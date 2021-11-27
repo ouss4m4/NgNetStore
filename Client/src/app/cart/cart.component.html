@@ -1,12 +1,20 @@
 <div *ngIf="cart$ | async as cart" class="container">
   <ng-container *ngIf="cart.items.length <= 0; else list">
-    <h1>Your Cart Is Empty, Start Shopping Here</h1>
+    <div class="text-center alert" role="alert">
+      <h3 class="pb-3">Your Cart Is Empty</h3>
+      <a routerLink="/shop" style="text-decoration: none">
+        <div class="gap-2 d-flex flex-column">
+          <span>Start Shopping Here</span>
+          <i class="mx-2 fa fa-home fa-2x text-dark"></i>
+        </div>
+      </a>
+    </div>
   </ng-container>
   <ng-template #list>
     <div class="pb-5">
       <div class="container">
         <div class="row">
-          <div class="col-12 py-5 mb-1">
+          <div class="py-5 mb-1 col-sm-12">
             <app-cart-summary
               (remove)="onRemoveClicked($event)"
               (increment)="onItemIncrementClick($event)"
@@ -15,17 +23,16 @@
             ></app-cart-summary>
           </div>
         </div>
-        <div class="row">
-          <div class="col-6 offset-6">
-            <app-order-totals></app-order-totals>
-            <a
-              routerLink="/checkout"
-              class="btn btn-primary py-2 d-block"
-              role="button"
-            >
-              Proceed to checkout
-            </a>
-          </div>
+
+        <div class="col-sm-12 col-lg-6 offset-lg-6">
+          <app-order-totals></app-order-totals>
+          <a
+            routerLink="/checkout"
+            class="py-2 btn btn-primary d-block"
+            role="button"
+          >
+            Proceed to checkout
+          </a>
         </div>
       </div>
     </div>

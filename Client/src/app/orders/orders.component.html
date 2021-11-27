@@ -4,14 +4,18 @@
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
-            <th>Order</th>
-            <th>Date</th>
-            <th>Total</th>
-            <th>Status</th>
+            <th scope="col">Order</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of orders" routerLink="/orders/{{ order.id }}">
+          <tr
+            *ngFor="let order of orders"
+            routerLink="/orders/{{ order.id }}"
+            scope="row"
+          >
             <th># {{ order.id }}</th>
             <td>{{ order.orderDate | date: "medium" }}</td>
             <td>{{ order.total | currency }}</td>

@@ -1,53 +1,65 @@
 <div class="container">
   <div class="row">
-    <section class="col-3" *ngIf="brands && types">
-      <h5 class="ml-3 text-warning">Sort</h5>
-      <select class="mb-3 form-control" (change)="onSortSelected($event)">
-        <option *ngFor="let option of sortOptions" [value]="option.value">
-          {{ option.name }}
-        </option>
-      </select>
-
-      <h5 class="ml-3 text-warning">Brands</h5>
-      <ul class="my-3 list-group">
-        <li
-          class="list-group-item my-2"
-          *ngFor="let brand of brands"
-          [class.active]="brand.id === this.shopParams.brandId"
-          [value]="brand.id"
-          (click)="onBrandSelected(brand.id)"
-          role="button"
+    <section class="col-md-12 col-lg-2" *ngIf="brands && types">
+      <div
+        class="my-2  d-flex justify-content-between align-items-center flex-md-column align-items-md-start"
+      >
+        <h5 class="ml-3 text-warning">Sort</h5>
+        <select
+          class="mb-3 form-control left-selects"
+          (change)="onSortSelected($event)"
         >
-          {{ brand.name }}
-        </li>
-      </ul>
-      <h5 class="ml-3 text-warning">Types</h5>
-      <ul class="my-3 list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let type of types"
-          [class.active]="type.id === this.shopParams.typeId"
-          [value]="type.id"
-          (click)="onTypeSelected(type.id)"
+          <option *ngFor="let option of sortOptions" [value]="option.value">
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="my-2  d-flex justify-content-between align-items-center flex-md-column align-items-md-start"
+      >
+        <h5 class="p-0 m-0 ml-3 text-warning">Brands</h5>
+        <select
+          #brand
+          class="form-select left-selects"
+          aria-label="Brand selection"
+          (change)="onBrandSelected(brand.value)"
         >
-          {{ type.name }}
-        </li>
-      </ul>
+          <option *ngFor="let brand of brands" [value]="brand.id">
+            {{ brand.name }}
+          </option>
+        </select>
+      </div>
+      <div
+        class="my-2  d-flex justify-content-between align-items-center flex-md-column align-items-md-start"
+      >
+        <h5 class="p-0 m-0 ml-3 text-warning">Types</h5>
+        <select
+          #type
+          class="form-select left-selects"
+          aria-label="Type selection"
+          (change)="onTypeSelected(type.value)"
+        >
+          <option *ngFor="let type of types" [value]="type.id">
+            {{ type.name }}
+          </option>
+        </select>
+      </div>
     </section>
 
-    <section class="col-9">
-      <div class="pb-2 d-flex justify-content-between align-items-center">
+    <section class="col-md-12 col-lg-10">
+      <div
+        class=" d-flex flex-sm-column-reverse flex-md-row justify-content-between align-items-center column-sm"
+      >
         <app-paging-header
           [count]="count"
           [pageIndex]="shopParams.pageIndex"
           [pageSize]="shopParams.pageSize"
         ></app-paging-header>
-        <div class="gap-2 d-flex form-inline align-items-center mt2">
+        <div class="gap-2 d-flex form-inline align-items-center">
           <input
             #search
             type="text"
             class="mr-2 form-control form-control-md"
-            style="width: 270px"
             placeholder="Search"
             (keyup.enter)="onSearch()"
           />

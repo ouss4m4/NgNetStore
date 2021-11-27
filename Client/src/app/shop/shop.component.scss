@@ -1,0 +1,15 @@
+.column-sm {
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-direction: column-reverse;
+  }
+}
+
+.left-selects {
+  @media (max-width: 768px) {
+    width: 65%;
+  }
+}

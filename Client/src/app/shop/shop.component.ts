@@ -53,14 +53,16 @@ export class ShopComponent implements OnInit {
     }, console.log);
   }
 
-  onBrandSelected(brandId: number) {
-    this.shopParams.brandId = brandId;
+  onBrandSelected(brandId: string) {
+    let id = parseInt(brandId, 10);
+    this.shopParams.brandId = id;
     this.shopParams.pageIndex = 1;
     this.getProducts();
   }
 
-  onTypeSelected(typeId: number) {
-    this.shopParams.typeId = typeId;
+  onTypeSelected(typeId: string) {
+    let id = parseInt(typeId, 10);
+    this.shopParams.typeId = id;
     this.shopParams.pageIndex = 1;
     this.getProducts();
   }

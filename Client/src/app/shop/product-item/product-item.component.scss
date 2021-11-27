@@ -2,7 +2,7 @@
   width: 30%;
 }
 
-.image :hover {
+.overlay :hover {
   opacity: 1;
   & button {
     transform: none;
@@ -28,5 +28,19 @@
   }
   & button:last-of-type {
     transform: translateX(20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .hover-overlay {
+    position: relative;
+    opacity: 1;
+    transition: none;
+    & button:first-of-type {
+      transform: none;
+    }
+    & button:last-of-type {
+      transform: none;
+    }
   }
 }

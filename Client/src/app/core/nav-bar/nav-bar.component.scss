@@ -1,3 +1,16 @@
+.toolbelt {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    margin: 14px auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .cart-no {
   position: absolute;
   min-height: 25px;

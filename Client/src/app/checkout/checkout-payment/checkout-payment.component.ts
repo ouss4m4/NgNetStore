@@ -139,7 +139,8 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       this.checkoutForm.get('paymentForm')?.invalid ||
       !this.cardNumberValid ||
       !this.cardExpiryValid ||
-      !this.cardCvcValid
+      !this.cardCvcValid ||
+      this.loading
     );
   }
 

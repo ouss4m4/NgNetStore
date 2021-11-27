@@ -1,23 +1,26 @@
 <div class="container fixed-top">
   <div
-    class="pb-3 mb-4 bg-white  d-flex flex-column flex-md-row align-items-center justify-content-between border-bottom"
+    class="bg-white  d-flex flex-column-reverse flex-md-row align-items-center justify-content-between border-bottom"
   >
     <img
       src="/assets/images/logo.png"
       style="max-height: 70px"
       alt="logo"
-      class="logo"
+      class="logo d-none d-md-block"
       routerLink="/"
     />
 
     <xng-breadcrumb></xng-breadcrumb>
 
-    <div class="d-flex align-items-center">
+    <div class="toolbelt">
       <a routerLink="/cart" class="position-relative">
-        <i class="mr-5 fa fa-shopping-cart fa-2x text-dark"></i>
+        <i class="mx-2 fa fa-shopping-cart fa-2x text-dark"></i>
         <div *ngIf="cart$ | async as cart" class="cart-no">
           {{ cart.items.length }}
         </div>
+      </a>
+      <a routerLink="/shop">
+        <i class="mx-2 fa fa-home fa-2x text-dark"></i>
       </a>
       <ng-container *ngIf="(currentUser$ | async)?.email === ''; else logged">
         <a
@@ -34,7 +37,7 @@
         >
       </ng-container>
       <ng-template #logged>
-        <div class="dropdown ms-3 me-5" dropdown>
+        <div class="dropdown" dropdown>
           <a class="dropdown-toggle" role="button" dropdownToggle
             ><strong
               >Welcome {{ (currentUser$ | async)?.displayName }}</strong

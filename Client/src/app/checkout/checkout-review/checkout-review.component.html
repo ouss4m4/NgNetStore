@@ -2,13 +2,27 @@
   <app-cart-summary></app-cart-summary>
 </div>
 
-<div
-  class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
->
+<div class="float-none mb-5 d-flex justify-content-between">
   <button class="btn btn-outline-primary" cdkStepperPrevious>
     <i class="fa fa-angle-left"></i> Back To Delivery
   </button>
   <button class="btn btn-outline-primary" (click)="createPaymentIntent()">
-    Go To Payment<i class="fa fa-angle-right"></i>
+    Payment <i class="fa fa-angle-right"></i>
   </button>
 </div>
+
+<!--
+<div class="float-none mb-5 d-flex justify-content-between flex-lg-row">
+  <button class="btn btn-outline-primary" cdkStepperPrevious>
+    <i class="fa fa-angle-left"></i> Back To Address
+  </button>
+  <button
+    [disabled]="checkoutForm.get('deliveryForm')!.invalid"
+    class="btn btn-outline-primary"
+    cdkStepperNext
+  >
+    Go To Review<i class="fa fa-angle-right"></i>
+  </button>
+</div>
+
+ -->

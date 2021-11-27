@@ -1,5 +1,10 @@
 <div class="mt-4" [formGroup]="checkoutForm" style="max-width: 440px">
   <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-primary" role="alert">
+        Use Card: 4242 4242 4242 4242 for testing,
+      </div>
+    </div>
     <div class="my-2 form-group col-12" formGroupName="paymentForm">
       <app-text-input
         [label]="'Card Holder Name'"
@@ -21,19 +26,13 @@
   </div>
 </div>
 
-<div
-  class="float-none my-5 d-flex justify-content-between flex-column flex-lg-row"
->
-  <button
-    [disabled]="loading"
-    class="btn btn-outline-primary"
-    cdkStepperPrevious
-  >
+<div class="float-none my-5 d-flex justify-content-between">
+  <button [disabled]="loading" class="btn btn-primary" cdkStepperPrevious>
     <i class="fa fa-angle-left"></i> Back To Review
   </button>
   <button
     [disabled]="shouldSubmitButtonDisable()"
-    class="btn btn-outline-primary"
+    class="btn btn-primary"
     (click)="submitOrder()"
   >
     Submit Order<i class="fa fa-angle-right"></i>

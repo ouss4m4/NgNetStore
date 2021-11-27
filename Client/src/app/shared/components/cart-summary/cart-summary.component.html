@@ -1,20 +1,20 @@
-<div class="table-responsive" *ngIf="cart$ | async as cart">
+<div *ngIf="cart$ | async as cart">
   <table class="table">
     <thead>
       <tr [class.bg-light]="allowEdits">
-        <th class="border-0" scope="col">
+        <th scope="col">
           <div class="p-2 px-3 text-uppercase">Product</div>
         </th>
-        <th class="border-0" scope="col">
+        <th scope="col">
           <div class="py-2 text-uppercase">Price</div>
         </th>
-        <th class="border-0" scope="col">
+        <th scope="col">
           <div class="py-2 text-uppercase">Quantity</div>
         </th>
-        <th class="border-0" scope="col">
+        <th scope="col">
           <div class="py-2 text-uppercase">Total</div>
         </th>
-        <th *ngIf="allowEdits" class="border-0" scope="col">
+        <th *ngIf="allowEdits" scope="col">
           <div class="py-2 text-uppercase">Remove</div>
         </th>
       </tr>
@@ -22,14 +22,13 @@
     <tbody>
       <tr *ngFor="let item of cart.items">
         <th scope="row">
-          <div class="p-2 d-flex">
+          <div class="p-2 d-flex flex-column flex-md-row">
             <img
               src="{{ item.pictureUrl }}"
               alt="{{ item.productName }}"
-              class="img-fluid"
-              style="max-height: 55px"
+              class="img-fluid cart-image"
             />
-            <div class="ms-3 d-inline align-middle">
+            <div class="align-middle ms-3 d-inline">
               <h5 class="mb-0">
                 <a routerLink="/shop/{{ item.id }}" class="text-dark">{{
                   item.productName
@@ -69,8 +68,8 @@
         <td class="align-middle">
           <strong>{{ item.price * item.quantity }}</strong>
         </td>
-        <td *ngIf="allowEdits" class="align-middle text-center">
-          <a class="text-danger cursor-pointer" role="button">
+        <td *ngIf="allowEdits" class="text-center align-middle">
+          <a class="cursor-pointer text-danger" role="button">
             <i
               class="fa fa-trash"
               style="font-size: 2em"

@@ -1,7 +1,8 @@
 <div class="container mt-5">
   <div class="row" *ngIf="order">
-    <div class="col-8">
+    <div class="col-sm-12 col-lg-8">
       <div>
+        <h3>#{{ order.id }} Status: {{ order.status }}</h3>
         <div class="table-responsive">
           <table class="table">
             <thead>
@@ -30,7 +31,7 @@
                       class="img-fluid"
                       style="max-height: 50px"
                     />
-                    <div class="ml-3 d-inline-block align-middle">
+                    <div class="ml-3 align-middle d-inline-block">
                       <h5 class="mb-0">
                         {{ item.productName }}
                       </h5>
@@ -41,7 +42,7 @@
                   <strong>{{ item.price | currency }}</strong>
                 </td>
                 <td class="align-middle">
-                  <span class="font-weight-bold px-2">{{ item.quantity }}</span>
+                  <span class="px-2 font-weight-bold">{{ item.quantity }}</span>
                 </td>
                 <td class="align-middle">
                   <strong>{{ item.price * item.quantity | currency }}</strong>
@@ -52,21 +53,21 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
-      <div class="bg-light px-4 py-3 text-uppercase font-weight-bold">
+    <div class="col-sm-12 col-lg-4">
+      <div class="px-4 py-3 bg-light text-uppercase font-weight-bold">
         Order summary
       </div>
       <div class="p-4">
-        <ul class="list-unstyled mb-1">
-          <li class="d-flex justify-content-between py-3 border-bottom">
+        <ul class="mb-1 list-unstyled">
+          <li class="py-3 d-flex justify-content-between border-bottom">
             <strong class="text-muted">Order subtotal</strong>
             <strong>{{ order.subtotal | currency }}</strong>
           </li>
-          <li class="d-flex justify-content-between py-3 border-bottom">
+          <li class="py-3 d-flex justify-content-between border-bottom">
             <strong class="text-muted">Shipping and handling</strong>
             <strong>{{ order.shippingPrice | currency }}</strong>
           </li>
-          <li class="d-flex justify-content-between py-3 border-bottom">
+          <li class="py-3 d-flex justify-content-between border-bottom">
             <strong class="text-muted">Total</strong>
             <strong>{{ order.total | currency }}</strong>
           </li>
