@@ -1,4 +1,4 @@
-<div *ngIf="cart$ | async as cart">
+<div *ngIf="cart$ | async as cart" class="overflow-auto">
   <table class="table">
     <thead>
       <tr [class.bg-light]="allowEdits">
@@ -28,7 +28,7 @@
               alt="{{ item.productName }}"
               class="img-fluid cart-image"
             />
-            <div class="align-middle ms-3 d-inline">
+            <div class="align-middle ms-3 d-none d-md-inline">
               <h5 class="mb-0">
                 <a routerLink="/shop/{{ item.id }}" class="text-dark">{{
                   item.productName
